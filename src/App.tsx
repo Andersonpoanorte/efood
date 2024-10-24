@@ -7,7 +7,7 @@ import Footer from './container/Footer'
 const Rotas = () => (
   <Routes>
     <Route path="/" element={<Home />} />
-    <Route path="/cardapio" element={<Restaurant />} />
+    <Route path="/cardapio/:id" element={<Restaurant />} />
   </Routes>
 )
 

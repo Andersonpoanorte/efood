@@ -1,13 +1,23 @@
 import { styled } from 'styled-components'
 import { cores } from '../../styles'
+import { Link } from 'react-router-dom'
 
-export const CardProduct = styled.div`
+export const CardProduct = styled(Link)`
   max-width: 1024px;
   width: 473px;
   margin: 0 auto;
   color: ${cores.vermelhorClaro};
   border: 1px solid ${cores.vermelhorClaro};
   position: relative;
+  text-decoration: none;
+  display: block;
+
+  img {
+    display: block;
+    width: 100%;
+    height: 217px;
+    object-fit: cover;
+  }
 `
 
 export const CardTag = styled.div`

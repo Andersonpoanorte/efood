@@ -1,15 +1,18 @@
-class MenuItemList {
+export type Efood = {
   id: number
-  image: string
-  title: string
-  describe: string
-
-  constructor(id: number, image: string, title: string, describe: string) {
-    this.describe = describe
-    this.image = image
-    this.title = title
-    this.id = id
-  }
+  titulo: string
+  destacado: boolean
+  tipo: string
+  avaliacao: number
+  descricao: string
+  capa: string
 }
 
-export default MenuItemList
+export type MenuItemProps = {
+  foto: string
+  nome: string
+  descricao: string
+  id: number
+  porcao: string
+  preco: number
+}

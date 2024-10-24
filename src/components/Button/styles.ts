@@ -24,4 +24,5 @@ export const ButtonMenu = styled.button`
   font-weight: 700;
   border: none;
   cursor: pointer;
+  display: block;
 `
