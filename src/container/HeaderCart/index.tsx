@@ -16,10 +16,6 @@ const HeaderCart = () => {
     dispatch(open())
   }
 
-  const quantity = items.reduce((accumulator, itemsToCheck) => {
-    return (accumulator += itemsToCheck.quantidade!)
-  }, 0)
-
   return (
     <HeaderImage style={{ backgroundImage: `url(${fundoHeader})` }}>
       <Header className="container">
@@ -32,7 +28,7 @@ const HeaderCart = () => {
         </Link>
 
         <LinkCart onClick={openCart}>
-          {quantity} produto(s) no carrinho
+          {items.length} produto(s) no carrinho
         </LinkCart>
       </Header>
     </HeaderImage>
