@@ -1,34 +1,43 @@
 import HeaderCart from '../../container/HeaderCart'
 
 import { useParams } from 'react-router-dom'
-import { useEffect, useState } from 'react'
-import { Efood } from '../../models/cardapio'
+
 import MenuItem from '../../components/MenuItem'
 import Hero from '../../container/Hero'
+import { useEffect, useState } from 'react'
+import { Efood } from '../../models/cardapio'
+import Cardapio from '../../components/Cardapio'
 
 const Restaurant = () => {
-  const { id } = useParams()
-  const [restaurantList, setRestaurantList] = useState<Efood>()
-
+  const { id } = useParams<{ id: string }>()
+  const [restaurants, setRestaurants] = useState<Efood[]>([])
   useEffect(() => {
-    fetch(`https://fake-api-tau.vercel.app/api/efood/restaurantes/${id}`)
+    fetch('https://fake-api-tau.vercel.app/api/efood/restaurantes')
       .then((res) => res.json())
-      .then((res) => setRestaurantList(res))
-  }, [id])
-
-  if (!restaurantList) {
-    return <h3>Carregando...</h3>
+      .then((res) => setRestaurants(res))
+  }, [])
+  if (!id) {
+    return <h3>Oops...404</h3>
   }
+  const restaurante = restaurants.find((r) => r.id === parseInt(id))
 
   return (
     <>
       <HeaderCart />
-      <Hero
-        image={restaurantList.capa}
-        titulo={restaurantList.titulo}
-        type={restaurantList.tipo}
-      />
-      <MenuItem />
+      {restaurante ? (
+        <>
+          <Hero />
+          <div className="container">
+            {restaurante.cardapio ? (
+              <Cardapio cardapioItems={restaurante.cardapio} />
+            ) : (
+              <></>
+            )}
+          </div>
+        </>
+      ) : (
+        <>OOPS! 404</>
+      )}
     </>
   )
 }

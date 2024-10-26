@@ -6,13 +6,15 @@ export type Efood = {
   avaliacao: number
   descricao: string
   capa: string
+  cardapio: []
 }
 
-export type MenuItemProps = {
+export type ECardapio = {
+  id: number
   foto: string
   nome: string
   descricao: string
-  id: number
-  porcao: string
   preco: number
+  porcao: string
+  quantidade?: number
 }

@@ -1,20 +1,21 @@
+import { useParams } from 'react-router-dom'
+import { useGetHeroQuery } from '../../services/api'
 import { HeroCss } from './styles'
 
-type Props = {
-  image: string
-  type: string
-  titulo: string
-}
+const Hero = () => {
+  const { id } = useParams()
 
-const Hero = ({ image, type, titulo }: Props) => {
+  const { data: hero } = useGetHeroQuery(id!)
+
   const capitalizeInitial = (palavra: string) => {
     return palavra.charAt(0).toUpperCase() + palavra.slice(1).toLowerCase()
   }
+
   return (
-    <HeroCss style={{ backgroundImage: `url(${image})` }}>
+    <HeroCss style={{ backgroundImage: `url(${hero?.capa})` }}>
       <div className="container">
-        <h4>{capitalizeInitial(type)}</h4>
-        <strong>{titulo}</strong>
+        <h4>{hero?.tipo}</h4>
+        <strong>{hero?.titulo}</strong>
       </div>
     </HeroCss>
   )

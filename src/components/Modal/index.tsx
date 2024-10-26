@@ -1,5 +1,5 @@
 import { ButtonMenu } from '../Button/styles'
-import { Botao, ModalCard, Title } from './styles'
+import { ModalCard, Title } from './styles'
 
 type Props = {
   image: string

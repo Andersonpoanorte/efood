@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { cores } from '../../styles'
 
 export const HeaderImage = styled.div`
-  max-width: 2000px;
+  max-width: 2150px;
   width: 100%;
   height: 186px;
   padding-top: 60px;
@@ -14,10 +14,10 @@ export const Header = styled.div`
   justify-content: space-between;
   align-items: center;
   color: ${cores.vermelhorClaro};
+`
 
-  span {
-    font-size: 18px;
-    font-weight: bold;
-    align-items: center;
-  }
+export const LinkCart = styled.a`
+  font-size: 18px;
+  font-weight: bold;
+  align-items: center;
 `

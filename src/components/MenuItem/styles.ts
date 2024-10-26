@@ -1,88 +1,116 @@
 import styled from 'styled-components'
 import { cores } from '../../styles'
 
-export const Container = styled.div`
-  .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.8);
-    z-index: 1;
-    display: none;
-  }
-
-  .overlay.isVisible {
-    display: block;
-  }
-`
-
-export const CardapioContainer = styled.section`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 32px;
-  padding-top: 80px;
-  padding-bottom: 120px;
-`
-
-export const ModalCss = styled.div`
+export const Card = styled.div`
+  padding: 8px;
   background-color: ${cores.vermelhorClaro};
-  color: ${cores.branco};
-  padding: 32px;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  z-index: 2;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  display: none;
 
-  &.isVisible {
-    display: block;
+  * {
+    color: ${cores.begeClaro};
   }
-`
 
-export const ModalContent = styled.div`
-  display: flex;
-  justify-content: space-between;
-
-  img:first-child {
-    width: 280px;
-    height: 280px;
+  img {
+    width: 100%;
     object-fit: cover;
-    display: block;
-    margin-right: 24px;
-  }
-
-  h1 {
-    font-size: 18px;
-    font-weight: 900;
-    line-height: 21.09px;
-    margin-bottom: 16px;
-  }
-
-  p {
-    margin-bottom: 16px;
-    line-height: 22px;
-  }
-
-  img:last-child {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    cursor: pointer;
+    object-position: center;
+    height: 167px;
   }
 `
 
-export const Button = styled.div`
+export const ContentContainer = styled.div`
+  margin-top: 8px;
+  color: ${cores.begeClaro};
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`
+
+export const Title = styled.h3`
+  font-size: 16px;
+  font-weight: 800;
+`
+
+export const Description = styled.p`
+  font-size: 14px;
+  line-height: 22px;
+  height: 70px;
+`
+
+export const AddToCartButton = styled.button`
+  cursor: pointer;
   background-color: ${cores.begeClaro};
   color: ${cores.vermelhorClaro};
-  padding: 4px 7px;
-  display: inline-block;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 14px;
-  line-height: 16.41px;
+  border: none;
+  padding: 4px 12px;
+
+  transition: 0.1s ease-in-out;
+
+  &:hover {
+    filter: brightness(1.05);
+  }
+`
+
+export const ProductInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-left: 24px;
+  gap: 16px;
+  align-items: flex-start;
+
+  button {
+    display: inline-block;
+  }
+`
+
+export const CloseButton = styled.img`
+  position: absolute;
+  top: 8px;
+  right: 8px;
   cursor: pointer;
+`
+
+export const Modal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: none;
+
+  &.visible {
+    display: flex;
+  }
+
+  .container {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    padding: 32px;
+    background-color: ${cores.vermelhorClaro};
+
+    > img {
+      width: 280px;
+      height: 280px;
+    }
+
+    ${CloseButton} {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.73);
+  }
 `

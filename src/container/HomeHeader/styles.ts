@@ -1,11 +1,16 @@
 import styled from 'styled-components'
+import { breakpoints } from '../../styles'
 
 export const HeaderImage = styled.div`
-  max-width: 2000px;
+  max-width: 2150px;
   width: 100%;
   height: 385px;
   background-repeat: no-repeat;
   background-size: cover;
+
+  @media (max-width: ${breakpoints.desktop}) {
+    width: 1250px;
+  }
 `
 export const Header = styled.div`
   display: flex;

@@ -1,121 +1,58 @@
-import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import Modal from '../Modal'
 import {
-  Button,
-  CardapioContainer,
-  Container,
-  ModalContent,
-  ModalCss
+  AddToCartButton,
+  Card,
+  CloseButton,
+  ContentContainer,
+  Description,
+  Modal,
+  ProductInfo,
+  Title
 } from './styles'
 
-import close from '../../assets/image/close_1.png'
-import { getDescricao } from '../Card'
+import { ECardapio } from '../../models/cardapio'
+import { useDispatch } from 'react-redux'
+import { add, open } from '../../store/reducers/cart'
+import { formataPreco, getDescricao } from '../../utils'
+import { useState } from 'react'
 
-interface ECardapio {
-  id: number
-  foto: string
-  nome: string
-  descricao: string
-  preco: number
-  porcao: string
-}
-interface modalState extends ECardapio {
-  isVisible: boolean
+type Props = {
+  listMenu: ECardapio
 }
 
-const MenuItem = () => {
-  const [menuList, setMenuList] = useState<ECardapio[]>([])
-  const [modal, setModal] = useState<modalState>({
-    isVisible: false,
-    id: 1,
-    foto: '',
-    nome: '',
-    descricao: '',
-    porcao: '',
-    preco: 0
-  })
-  const { id } = useParams()
-
-  useEffect(() => {
-    fetch(`https://fake-api-tau.vercel.app/api/efood/restaurantes/${id}`)
-      .then((res) => res.json())
-      .then((res) => setMenuList(res.cardapio))
-  }, [id])
-
-  if (id === undefined) {
-    return null
-  }
-
-  const fecharModal = () => {
-    setModal({
-      isVisible: false,
-      id: modal.id,
-      foto: modal.foto,
-      nome: modal.nome,
-      descricao: modal.descricao,
-      porcao: modal.porcao,
-      preco: modal.preco
-    })
-  }
-
-  const formataPreco = (preco: number) => {
-    return new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL'
-    }).format(preco)
+const MenuItem = ({ listMenu }: Props) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const dispath = useDispatch()
+  const addToCart = () => {
+    dispath(add(listMenu))
+    dispath(open())
   }
 
   return (
-    <Container>
-      <CardapioContainer className="container">
-        {menuList.map((menu) => (
-          <Modal
-            onClick={() =>
-              setModal({
-                id: menu.id,
-                nome: menu.nome,
-                descricao: menu.descricao,
-                foto: menu.foto,
-                porcao: menu.porcao,
-                preco: menu.preco,
-                isVisible: true
-              })
-            }
-            key={menu.id}
-            image={menu.foto}
-            title={menu.nome}
-            description={getDescricao(menu.descricao)}
-          />
-        ))}
-      </CardapioContainer>
-      <ModalCss
-        className={modal.isVisible ? ' container isVisible' : 'container'}
-      >
-        <ModalContent>
-          <img src={modal.foto} />
-          <div>
-            <h1>{modal.nome}</h1>
-            <p>
-              {modal.descricao} <br /> <br />
-              {modal.porcao.includes('1 pessoa')
-                ? 'Serve: 1 pessoa'
-                : `Serve: de ${modal.porcao}`}
-            </p>
-            <Button>Adicionar ao carrinho - {formataPreco(modal.preco)}</Button>
-          </div>
-          <img
-            src={close}
-            alt="'icone de fechar a modal"
-            onClick={() => fecharModal()}
-          />
-        </ModalContent>
-      </ModalCss>
-      <div
-        onClick={() => fecharModal()}
-        className={modal.isVisible ? 'overlay isVisible' : ' overlay'}
-      ></div>
-    </Container>
+    <Card>
+      <img src={listMenu.foto} alt={listMenu.nome} />
+      <ContentContainer>
+        <Title>{listMenu.nome}</Title>
+        <Description> {getDescricao(`${listMenu.descricao}`)}</Description>
+        <AddToCartButton onClick={() => setIsOpen(true)}>
+          Adicionar ao Carrinho
+        </AddToCartButton>
+      </ContentContainer>
+      <Modal className={isOpen ? 'visible' : ''}>
+        <div className="container">
+          <CloseButton src={CloseButton} onClick={() => setIsOpen(false)} />
+          <img src={listMenu.foto} alt={listMenu.nome} />
+          <ProductInfo>
+            <h3>{listMenu.nome}</h3>
+            <p>{listMenu.descricao}</p>
+            <p>Serve: de {listMenu.porcao}</p>
+            <AddToCartButton onClick={addToCart}>
+              Adicionar ao carrinho - {formataPreco(listMenu.preco)}
+            </AddToCartButton>
+          </ProductInfo>
+        </div>
+        <div className="overlay" onClick={() => setIsOpen(false)} />
+      </Modal>
+    </Card>
   )
 }
 

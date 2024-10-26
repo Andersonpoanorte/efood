@@ -1,24 +1,20 @@
 import HomeHeader from '../../container/HomeHeader'
 import Main from '../../container/Main'
 
-import { useEffect, useState } from 'react'
-import { Efood } from '../../models/cardapio'
+import { useGetRestaurantsQuery } from '../../services/api'
 
 const Home = () => {
-  const [restaurantes, setRestaurantes] = useState<Efood[]>([])
+  const { data: restaurantes } = useGetRestaurantsQuery()
 
-  useEffect(() => {
-    fetch('https://fake-api-tau.vercel.app/api/efood/restaurantes')
-      .then((res) => res.json())
-      .then((res) => setRestaurantes(res))
-  }, [])
-
-  return (
-    <>
-      <HomeHeader />
-      <Main efood={restaurantes} />
-    </>
-  )
+  if (restaurantes) {
+    return (
+      <>
+        <HomeHeader />
+        <Main efood={restaurantes} />
+      </>
+    )
+  }
+  return <h4>Carregando</h4>
 }
 
 export default Home
