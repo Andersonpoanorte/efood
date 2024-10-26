@@ -1,18 +1,15 @@
 import { MenuButton } from '../Button'
 import {
-  AddIem,
-  ButtonMore,
   CartContainer,
   CartItem,
   Overlay,
   Price,
   Quantity,
-  QuantityButton,
   Sidebar
 } from './styles'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
-import { close, remove, addMore, removeOne } from '../../store/reducers/cart'
+import { close, remove } from '../../store/reducers/cart'
 import { formataPreco } from '../../utils'
 
 const Cart = () => {
@@ -33,10 +30,6 @@ const Cart = () => {
     }, 0)
   }
 
-  const quantityCart = items.reduce((accumulator, itemsToCheck) => {
-    return (accumulator += itemsToCheck.quantidade!)
-  }, 0)
-
   return (
     <CartContainer className={isOpen ? 'is-open' : ''}>
       <Overlay onClick={() => closeCart()} />
@@ -48,21 +41,12 @@ const Cart = () => {
               <div>
                 <h3>{i.nome}</h3>
                 <span>{formataPreco(i.preco)}</span>
-                <AddIem>
-                  <span>Quantidade: {i.quantidade}</span>
-                  <ButtonMore onClick={() => dispatch(addMore(i.id))}>
-                    +
-                  </ButtonMore>
-                  <ButtonMore onClick={() => dispatch(removeOne(i.id))}>
-                    -
-                  </ButtonMore>
-                </AddIem>
               </div>
               <button type="button" onClick={() => removeItem(i.id)}></button>
             </CartItem>
           ))}
         </ul>
-        <Quantity> {quantityCart} item(s) no carrinho</Quantity>
+        <Quantity> {items.length} item(s) no carrinho</Quantity>
         <Price>
           <p>Valor total</p>
           <p>{formataPreco(getTotalPrice())}</p>
