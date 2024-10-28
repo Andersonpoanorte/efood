@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { cores } from '../../styles'
-import { ButtonMenu } from '../Button/styles'
+import { ButtonCard, ButtonMenu } from '../Button/styles'
 import lixeira from '../../assets/image/bin.png'
 
 export const Overlay = styled.div`
@@ -107,34 +107,20 @@ export const AddIem = styled.div`
   align-items: center;
   margin-top: 8px;
 `
-export const ButtonMore = styled.a`
-  cursor: pointer;
-  border: 1px solid ${cores.vermelhorClaro};
-  width: 16px;
-  height: 16px;
-  display: flex;
+
+export const GoToCheckoutButton = styled.button`
+  padding: 4px 6px;
+  height: 24px;
+  font-size: 14px;
+  background-color: ${cores.begeClaro};
+  color: ${cores.vermelhorClaro};
+  font-weight: 700;
   align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  margin-left: 20px;
-  font-weight: bold;
-
-  &:hover {
-    background-color: ${cores.vermelhorClaro};
-    color: ${cores.begeClaro};
-  }
-`
-
-export const QuantityButton = styled.button`
-  background-color: transparent;
-  font-weight: bold;
-  font-size: 18px;
   border: none;
-  margin-left: 8px;
-  cursor: pointer;
-  display: flex;
 
-  &:hover {
-    filter: brightness(1.3);
+  &.disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
   }
+  width: 100%;
 `
